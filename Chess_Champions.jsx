@@ -70,23 +70,40 @@ const champions = [
 
 
 const Champion = (props) => {
-  return (
+  const [isEdit, setIsEdit] = React.useState(false);
+  const [nameChanged, setName] = React.useState(props.name)
+  const [yearChanged, setYear] = React.useState(props.year)
+
+// 1. Создание абстрактной (не связанной с конкретным элементом) ссылки
+const inputName = React.useRef();
+const inputYear = React.useRef();
+
+  return isEdit ? (
     
-    <div style={{
-        border: "1px solid #ccc",
-        borderRadius: "10px",
-        padding: "10px",
-        textAlign: "center",
-        boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
-        backgroundColor: "#dad7d7",
-      }}
-    >  
-      <h2>Name: {props.name} </h2>
-      <p>Year: {props.year} </p>
-      <img src={props.photo} alt={props.name} style={{maxWidth: "230px", objectFit: "cover", borderRadius: "8px" }}
-      />
+    <div className="card mx-auto my-3" style={{maxWidth: "400px"}}>   
+    <img src={props.photo} className="card-img-top" alt={props.name}></img>
+    <div className="card-body">
+      {/* 2. Соединение абстрактной ссылки с конкретным элементом */}
+      <input ref={inputName} type="text" defaultValue={nameChanged} />
+      <input ref={inputYear} type="text" defaultValue={yearChanged}/>
+      <button className="btn btn-success" onClick={() => {
+        champions.name = setName(inputName.current.value);
+        champions.year = setYear (inputYear.current.value);
+        setIsEdit(false);
+      }}>Save</button>
     </div>
-  );
+    </div>
+  ):(
+    
+    <div className="card mx-auto my-3" style={{maxWidth: "400px"}}>   
+    <img src={props.photo} className="card-img-top" alt={props.name}></img>
+    <div className="card-body">
+    </div>
+      <h2 className="card-title">{nameChanged} </h2>
+      <p className="card-text mx-auto my-auto">{yearChanged} </p>
+      <button className="btn btn-warning" onClick={()=> setIsEdit(true)}>Edit Name or Year</button>
+    </div>
+  )
 };
 
 root.render(
