@@ -83,7 +83,8 @@ const inputYear = React.useRef();
     <div className="card mx-auto my-3" style={{maxWidth: "400px"}}>   
     <img src={props.photo} className="card-img-top" alt={props.name}></img>
     <div className="card-body">
-      {/* 2. Соединение абстрактной ссылки с конкретным элементом */}
+      {/* 2. Соединение абстрактной ссылки inputName и inputYear с конкретным элементом в качестве 
+      дефолтного значения устанавливаем измененные значения имени и года*/}
       <input ref={inputName} type="text" defaultValue={nameChanged} />
       <input ref={inputYear} type="text" defaultValue={yearChanged}/>
       <button className="btn btn-success" onClick={() => {
@@ -99,6 +100,7 @@ const inputYear = React.useRef();
     <img src={props.photo} className="card-img-top" alt={props.name}></img>
     <div className="card-body">
     </div>
+    {/* Не забываем установить для вывода изменённое имя и год*/}
       <h2 className="card-title">{nameChanged} </h2>
       <p className="card-text mx-auto my-auto">{yearChanged} </p>
       <button className="btn btn-warning" onClick={()=> setIsEdit(true)}>Edit Name or Year</button>
